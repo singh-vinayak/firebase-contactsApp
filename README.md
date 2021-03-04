@@ -1,7 +1,7 @@
 ﻿# firebase-contactsApp
  Visit <a href="https://myfirstapp-fa70b.web.app/">Here</a>
  <br>
-<p>Created My First Web App Named <em>Contact Directory WebApp<em>, using Google Firebase and its services that i learnt during 1 week Tech Drill organised by GDG JALANDHAR as part of it's Firebase series.</p>
+<p>Created My First Web App Named <em>Contact Directory WebApp</em>, using Google Firebase and its services that i learnt during 1 week Tech Drill organised by GDG JALANDHAR as part of it's Firebase series.</p>
 <p>Services I ussed include<br>
   <ul>
     <li>FireBase Hosting</li>
