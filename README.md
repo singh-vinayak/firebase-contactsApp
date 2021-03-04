@@ -10,4 +10,4 @@
   </ul>
   </p>
   <p>Apart from this, I've used HTML, CSS, Bootstrap and JavaScript</p>
-  <p> A special mention to my Mentor Vrijraj Singh (his github link is <a href="https://github.com/vrijraj">this</a>)Sir who instructed and guided me very well</p>
+  <p> A special mention to my Mentor Vrijraj Singh (his github link is <a href="https://github.com/vrijraj">this</a>) Sir who instructed and guided me very well</p>
