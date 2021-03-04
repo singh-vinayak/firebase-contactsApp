@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Directory WebApp</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <!-- font awesome-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="favicon_io/favicon.ico">
+  <style>
+    html,
+    body {
+      background-image: url('./favicon_io/y-so-serious.png');
+      background-repeat: repeat;
+      color: antiquewhite;
+    }
+
+    * {
+      width: 100%;
+      padding: 2px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .btn {
+      display: flex;
+      justify-content: center;
+    }
+
+    .fa {
+      width: fit-content;
+      margin-left: 1%;
+    }
+
+    .row {
+      margin-top: 30vh;
+      padding: 0.75rem;
+      ;
+      display: flex;
+      flex-flow: column wrap;
+      border: 1px solid black;
+    }
+
+    #signIn {
+      width: 40%;
+      margin-top: 5px;
+      align-self: center;
+      transform: background-color 1s;
+      transform: scale 1s;
+    }
+
+    #signIn:hover {
+      animation: scaleUp 2s infinite;
+      background-color: rgb(94, 255, 0);
+      color: white;
+      font-weight: bolder;
+    }
+
+    #signInGoogle {
+      margin-top: 5px;
+      width: 40%;
+      align-self: center;
+      transform: background-color 1s;
+      transform: scale 1s;
+    }
+
+    #signInGoogle:hover {
+      animation: scaleUp 2s infinite;
+      background-color: blue;
+      color: white;
+      font-weight: bolder;
+    }
+
+    @keyframes scaleUp {
+      0% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(1.125);
+      }
+    }
+
+    .userInfo {
+      display: none;
+      align-items: center;
+    }
+
+    #userInfoScreen {
+      max-width: 100%;
+      height: auto;
+
+    }
+
+    .userImg {
+      border: 1px solid black;
+      width: 50%;
+      margin: 2% auto;
+    }
+
+    .signOut {
+      max-width: 25%;
+      border: 1px inset aquamarine;
+      border-radius: 10px;
+    }
+
+    .signOut:hover {
+      animation: scaleUp 2s infinite;
+      color: azure;
+      box-shadow: 3px 3px 5px rgb(0, 0, 0);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background: linear-gradient(to right, #ff6600, rgb(126, 255, 255));
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px inset #888;
+      width: 80%;
+      height: fit-content;
+      color: darkorchid;
+      font-weight: 900;
+    }
+
+    .close,
+    .close2 {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      width: fit-content;
+    }
+
+    .close:hover,
+    .close:focus,
+    .close2:hover,
+    .close2:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    form * {
+      padding: 0.5rem 0.625rem;
+      justify-content: space-between;
+      margin-top: 5px;
+    }
+
+    #submitBtn,
+    #submitBtn2 {
+      border-radius: 0.25rem;
+      width: 30%;
+      max-width: 200px;
+
+    }
+
+    #userLogIn {
+      width: 20%;
+      margin-top: 5px;
+      align-self: center;
+      transform: background-color 1s;
+      transform: scale 1s;
+    }
+
+    #userLogIn:hover {
+      animation: scaleUp 1s infinite;
+      background-color: rgb(160, 160, 160);
+      color: white;
+      font-weight: bolder;
+    }
+
+    .contacts {
+      margin-top: 30%;
+      width: 50%;
+    }
+
+    .contacts * {
+      margin-top: 10px;
+    }
+
+    table {
+      margin-bottom: 50%;
+
+    }
+
+    th {
+      margin-right: 25%;
+    }
+
+    .container {
+      height: 100vh;
+    }
+
+    #addDataBtn {
+      width: fit-content;
+      float: right;
+      padding: 5px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <h1 class="col" id="intro">Your Contacts List</h1>
+      <button class="col btn btn-info " id="signInGoogle">Sign In with Google<i class="fa fa-google"></i></button>
+      <button class="col btn btn-primary " id="signIn">Sign Up with Email<i class="fa fa-envelope"></i></button>
+      <a class="col btn btn-dark " id="userLogIn" href="#">Log In with Email<i class="fa fa-envelope"></i></a>
+    </div>
+    <div class="row userInfo">
+      <div id="userInfoScreen">
+
+      </div>
+      <button class="signOut btn btn-danger" id="signOutBtn">Sign Out</button>
+    </div>
+
+  </div>
+
+  <div id="loginScreen" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form action="#" method="POST">
+        <label for="emailInput" class="labelField">Email Address:</label>
+        <input type="email" id="emailInput" class="inputField" placeholder="abcdef@xyz.com" required />
+        <label for="pwdInput">Password:</label>
+        <input type="password" id="pwdInput" placeholder="input a strong password" required />
+        <button type="submit" id="submitBtn">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="loginScreen2" class="modal">
+    <div class="modal-content">
+      <span class="close2">&times;</span>
+      <form action="#" method="POST">
+        <label for="emailInput2" class="labelField">Email Address:</label>
+        <input type="email" id="emailInput2" class="inputField" placeholder="Enter Email-id" required/>
+        <label for="pwdInput2">Password:</label>
+        <input type="password" id="pwdInput2" placeholder="Enter password" required/>
+        <button type="submit" id="submitBtn2">Log In</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container contacts">
+    <h1>Contacts</h1>
+    <input type="text" id="name" placeholder="Enter Name" required>
+    <input type="text" id="age" placeholder="Enter Age" required>
+    <button id="addDataBtn">Add Data</button>
+    <br><br>
+    <table border="2">
+      <thead>
+        <th>Name</td>
+        <th>Age</th>
+        <th>Action</td>
+      </thead>
+      <tbody id="res">
+      </tbody>
+    </table>
+    <div class="row">
+      <h3>Current user list length: <span id="contactsNumber">0</span></h3>
+    </div>
+  </div>
+
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCPocFhDbo2PKD5vmfVpehKv8-wo6qJqiI",
+      authDomain: "myfirstapp-fa70b.firebaseapp.com",
+      projectId: "myfirstapp-fa70b",
+      storageBucket: "myfirstapp-fa70b.appspot.com",
+      messagingSenderId: "903549704808",
+      appId: "1:903549704808:web:e00cdb698175a6e1fcb9dd"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    let loginCheck = false
+    document.getElementById('signInGoogle').addEventListener('click', callGoogleAuth)
+
+    function callGoogleAuth() {
+      //alert("clicked")
+      var provider = new firebase.auth.GoogleAuthProvider();
+
+      firebase.auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          /** @type {firebase.auth.OAuthCredential} */
+          var credential = result.credential;
+
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // ...
+          // console.log(user);
+
+        }).catch((error) => {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+        });
+    }
+
+    function checkStateUser() {
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          // User is signed in.
+          var displayName = user.displayName;
+          var email = user.email;
+          var emailVerified = user.emailVerified;
+          var photoURL = user.photoURL;
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          var providerData = user.providerData;
+          displayUserInfo(user);
+
+          document.getElementById('intro').innerHTML = user.displayName + '\'s Contacts List'
+
+        } else {
+          document.getElementById('signInGoogle').style.display = 'flex'
+          document.getElementById('signIn').style.display = 'flex'
+          document.getElementById('userLogIn').style.display = 'flex'
+          document.getElementById('intro').textContent = "Your Contacts List"
+        }
+      });
+
+    }
+
+    function displayUserInfo(user) {
+      document.getElementById('signInGoogle').style.display = 'none'
+      document.getElementById('signIn').style.display = 'none'
+      document.getElementById('userLogIn').style.display = 'none'
+      const userInfoScreen = document.getElementById('userInfoScreen');
+      let p1 = document.createElement('p')
+      let p2 = document.createElement('p')
+      let img = document.createElement("img");
+      img.classList.add('userImg')
+      img.src = user.photoURL;
+      p1.textContent = user.displayName;
+      p2.textContent = user.email;
+      userInfoScreen.appendChild(img);
+      userInfoScreen.appendChild(p1);
+      userInfoScreen.appendChild(p2);
+      document.querySelector('.userInfo').style.display = 'flex'
+      userInfoScreen.style.display = 'flex'
+      userInfoScreen.style.flexFlow = 'column wrap'
+      userInfoScreen.style.textAlign = 'center'
+    }
+    checkStateUser();
+    document.getElementById('signOutBtn').addEventListener('click', signOutUser)
+
+    function signOutUser() {
+      firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        loginCheck = false
+        document.querySelector('.userInfo').style.display = 'none'
+        document.getElementById('signInGoogle').style.display = 'flex'
+        document.getElementById('signIn').style.display = 'flex'
+        document.getElementById('userLogIn').style.display = 'flex'
+      }).catch((error) => {
+        console.error('an error occured while signing out :/')
+      });
+
+    }
+
+    /**create account using email and password*/
+
+    document.getElementById('signIn').addEventListener('click', function () {
+      document.getElementById('loginScreen').style.display = 'flex'
+    })
+
+    document.getElementById('submitBtn').addEventListener('click', signUpUser)
+
+    function signUpUser() {
+      let email = document.getElementById('emailInput').value;
+      let password = document.getElementById('pwdInput').value;
+      alert('user created!!')
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode);
+        alert(errorMessage);
+      });
+    }
+    //making the modal responsive
+    var modal = document.getElementById('loginScreen')
+    var span = document.getElementsByClassName('close')[0]
+    span.addEventListener('click', function () {
+      modal.style.display = 'none'
+    })
+
+    function checkModalState() {
+      window.addEventListener('click', function (e) {
+        if (e.target == modal) {
+          modal.style.display = 'none'
+        }
+      })
+
+    }
+    checkModalState()
+
+    document.getElementById('userLogIn').addEventListener('click', function () {
+      document.getElementById('loginScreen2').style.display = 'flex'
+    })
+
+    document.getElementById('submitBtn2').addEventListener('click',function(){
+      loginCheck=true
+      let email = document.getElementById('emailInput2').value;
+      let password = document.getElementById('pwdInput2').value;
+      alert('Signed In using anonymous email id')
+      // firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+      //   // Handle Errors here.
+      //   var errorCode = error.code;
+      //   var errorMessage = error.message;
+      //   console.log(errorCode);
+      //   console.log(errorMessage);
+      // });
+    });
+
+    //making the modal responsive
+    var modal2 = document.getElementById('loginScreen2')
+    var span2 = document.getElementsByClassName('close2')[0]
+    span2.addEventListener('click', function () {
+      modal2.style.display = 'none'
+    })
+
+    function checkModalState2() {
+      window.addEventListener('click', function (e) {
+        if (e.target == modal2) {
+          modal2.style.display = 'none'
+        }
+      })
+
+    }
+    checkModalState2()
+
+
+    document.getElementById('addDataBtn').addEventListener('click', addData)
+
+    function addData() {
+      let nameData = document.getElementById('name').value
+      let ageData = document.getElementById('age').value
+
+      firebase.firestore().collection('data').add({
+        name: nameData,
+        age: ageData,
+        timestamp: new Date()
+      }).then(doc => {
+        console.log(doc.id)
+        alert('Data Added')
+        readData()
+      }).catch(e => console.log(e))
+    }
+
+    function readData() {
+      let contactsNumber=document.getElementById('contactsNumber')
+      let count=0
+      document.getElementById('res').innerHTML = ""
+      document.getElementById('name').innerHTML = ""
+      document.getElementById('age').innerHTML = ""
+      firebase.firestore().collection('data').get().then(docs => {
+        docs.forEach(doc => {
+          document.getElementById('res').innerHTML += `
+                    <tr>
+                        <td>${doc.data().name}</td>
+                        <td>${doc.data().age}</td>
+                        <td>
+                            <button onClick="deleteDoc('${doc.id}')">Delete</button>
+                        </td>
+                    </tr>
+                `
+        })
+        docs.forEach(doc=>{
+          count++;
+        })
+        contactsNumber.innerHTML=count
+      })
+    }
+
+    function deleteDoc(id) {
+      //   console.log('Calling')
+      //   console.log(id)
+      if (confirm('Are you Interested?')) {
+        firebase.firestore().collection('data').doc(id).delete().then(() => {
+          alert('Data Removed')
+          readData()
+        }).catch(e => console.log(e))
+      }
+    }
+
+    readData()
+
+
+  </script>
+</body>
+
+</html>
